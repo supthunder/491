@@ -76,3 +76,15 @@ if not rs:
 else:
 	for res in rs:
 		print res
+
+print("\n\n===============================")
+print("Branches that manage smiths loans")
+hlc = db.branch
+for branch in branches:
+	q = {"name":branch}
+	rs = hlc.find(q)
+	if not rs:
+		print "None found"
+	else:
+		for res in rs:
+			print res
