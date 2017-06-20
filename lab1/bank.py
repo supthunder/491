@@ -34,7 +34,8 @@ hlc = db.customers
 q = {
 	"name" : "Smith"
 }
-rs = hlc.find(q)
+p = {"_id":0}
+rs = hlc.find(q,p)
 
 if not rs:
 	print "None found"
@@ -55,7 +56,8 @@ branches = []
 hlc = db.loans
 for loan in loanInfo:
 	loan = {"loanNo":loan}
-	rs = hlc.find(loan)
+	p = {"_id": 0}
+	rs = hlc.find(loan,p)
 	if not rs:
 		print "None found"
 	else:
@@ -67,10 +69,12 @@ print("\n\n===============================")
 print("Finding smiths loans/ loan information V2")
 hlc = db.loans
 q = {
-	"customers" : "Jones"
+	"customers" : "Smith"
 }
-rs = hlc.find(q)
-
+p = {
+	"_id": 0
+}
+rs = hlc.find(q,p)
 if not rs:
 	print "None found"
 else:
@@ -88,3 +92,21 @@ for branch in branches:
 	else:
 		for res in rs:
 			print res
+
+print("\n\n===============================")
+print("Branches that manage smiths loans - Projection only")
+hlc = db.loans
+q = {
+	"customers":"Smith"
+}
+p = {
+	"branch":1,
+	"_id":0
+}
+rs = hlc.find(q,p)
+
+if not rs:
+	print "No joy on q,p"
+else:
+	for res in rs:
+		print res
