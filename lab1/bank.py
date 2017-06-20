@@ -4,14 +4,14 @@ import copy
 
 try:
 	conn = pymongo.MongoClient('localhost:27017')
-	db = conn.cmsc491
+	db = conn.lab1
 except pymongo.errors.ConnectionFailure as e:
 	print "problem connecting to cmsc491", e
 	sys.exit(1)
-conn.drop_database('cmsc491')
+
+conn.drop_database('lab1')
 
 
-Create collections
 docs = ["Accounts.txt","Branch.txt","Customers.txt","Loans.txt"]
 colletions = [db.accounts, db.branch, db.customers, db.loans]
 
