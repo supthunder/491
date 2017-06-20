@@ -28,7 +28,6 @@ except pymongo.errors.ConnectionFailure as e:
 # 		print in_lst[i]
 # 		hlc.insert(in_lst[i])
 
-
 print("Finding smith")
 hlc = db.customers
 q = {
@@ -40,6 +39,24 @@ rs = hlc.find(q)
 if not rs:
 	print "None found"
 else:
-	print rs
 	for res in rs:
 		print res
+
+print("===============================\n\n")
+print("Finding smiths loans/ loan information")
+rs.rewind()
+for res in rs:
+	loanInfo = res.get('loans')
+	print(loanInfo)
+
+hlc = db.loans
+for loan in loanInfo:
+	loan = {"loanNo":loan}
+	rs = hlc.find(loan)
+	if not rs:
+		print "None found"
+	else:
+		for res in rs:
+			print res
+
+print("===============================\n\n")
