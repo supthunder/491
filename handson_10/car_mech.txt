@@ -1,7 +1,15 @@
 [
+<<<<<<< HEAD
 	{ 'id':'1','car_id':'C-005','mech_id':'M-0101' },
 	{ 'id':'2','car_id':'C-001','mech_id':'M-0901' },
 	{ 'id':'3','car_id':'C-004','mech_id':'M-0601' },
 	{ 'id':'4','car_id':'C-002','mech_id':'M-0201' },
 	{ 'id':'5','car_id':'C-003','mech_id':'M-0401' }
+=======
+    	{ 'id':'1','car_id':'C-005','mech_id':'M-0101' },
+    	{ 'id':'2','car_id':'C-001','mech_id':'M-0901' },
+    	{ 'id':'3','car_id':'C-004','mech_id':'M-0601' },
+    	{ 'id':'4','car_id':'C-002','mech_id':'M-0201' },
+    	{ 'id':'5','car_id':'C-003','mech_id':'M-0401' }
+>>>>>>> de0c0c2b8b38c9e5472fa5bb7cb4cee84ad0b9f5
 ]
