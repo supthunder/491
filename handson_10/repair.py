@@ -17,7 +17,7 @@ collections = [db.cars, db.mechanics, db.tests, db.car_mechanic, db.test_mechani
 
 # hlc = db.lab1
 for doc in range(0,len(docs)):
-	hlc = colletions[doc]
+	hlc = collections[doc]
 	in_str = open(docs[doc]).read()
 	in_lst = eval(in_str)
 	for i in range(0, len(in_lst)):
