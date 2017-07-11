@@ -27,11 +27,11 @@ for doc in range(0,len(docs)):
 print("\n\n===============================")
 print("Finding Customer")
 
-x = str(raw_input("Customer name? "))
+x = str(raw_input("Customer name (John Doe)? "))
 
-hlc = db.customers
+hlc = db.cars
 q = {
-	"name" : x
+	"customer_name" : x
 }
 p = {"_id":0}
 rs = hlc.find(q,p)
@@ -40,7 +40,7 @@ if not rs:
 	print "None found"
 else:
 	for res in rs:
-		print res
+		print res['test_id']
 
 # print("\n\n===============================")
 # print("Finding smiths loans/ loan information")
