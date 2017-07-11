@@ -13,7 +13,7 @@ conn.drop_database('lab2')
 
 
 docs = ["Cars.txt","Mechanics.txt","Tests.txt","Car_Mechanic.txt", "Test_Mechanic.txt"]
-colletions = [db.cars, db.mechanics, db.tests, db.car_mechanic, db.test_mechanic]
+collections = [db.cars, db.mechanics, db.tests, db.car_mechanic, db.test_mechanic]
 
 # hlc = db.lab1
 for doc in range(0,len(docs)):
