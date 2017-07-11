@@ -1,0 +1,7 @@
+[
+{'id':'1','name':'Jen','specialization':'body','car_id':'car_1'}
+{'id':'2','name':'Letitia','specialization':'body','car_id':'car_2'}
+{'id':'3','name':'Ettie','specialization':'engine','car_id':'car_3'}
+{'id':'4','name':'Beaulah','specialization':'wheels','car_id':'car_4'}
+{'id':'5','name':'Darren','specialization':'lights','car_id':'car_5'}
+]
