@@ -4,7 +4,7 @@ import copy
 
 try:
 	conn = pymongo.MongoClient('localhost:27017')
-	db = conn.lab1
+	db = conn.lab2
 except pymongo.errors.ConnectionFailure as e:
 	print "problem connecting to cmsc491", e
 	sys.exit(1)
