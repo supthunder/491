@@ -32,7 +32,7 @@ car_id = ""
 
 hlc = db.cars
 q = {
-	"customer_name" : "John Doe"
+	"customer_name" : x
 }
 p = {"_id":0}
 rs = hlc.find(q,p)
@@ -42,6 +42,7 @@ if not rs:
 else:
 	for res in rs:
 		car_id = res['id']
+                print ("Car ID: " +car_id)
 
 # get tests:
 hlc = db.test
@@ -55,7 +56,7 @@ if not rs:
 	print "None found"
 else:
 	for res in rs:
-		print res['testname']
+            print ("testname: " +res['testname'])
 
 
 
@@ -66,7 +67,7 @@ x = str(raw_input("Car ID (C-001)? "))
 
 hlc = db.car_mech
 q = {
-	"car_id" : 'C-001'
+	"car_id" : x
 }
 p = {"_id":0}
 rs = hlc.find(q,p)
@@ -82,8 +83,9 @@ print("Find all cars that have had specific type test run:")
 x = str(raw_input("Car test (brakes)? "))
 
 hlc = db.test
+test_id = ""
 q = {
-	"testname" : "brakes"
+	"testname" : x
 }
 p = {
 	"_id": 0
@@ -93,5 +95,17 @@ if not rs:
 	print "None found"
 else:
 	for res in rs:
-		print res['car_id']
+		test_id = res['test_id']
+hlc = db.cars
+q = {
+        "test_id" : test_id
+}
+p = {"_id":0}
+rs = hlc.find(q,p)
+
+if not rs:
+    print "None found"
+else:
+    for res in rs:
+        print res['id']
 
