@@ -9,11 +9,11 @@ except pymongo.errors.ConnectionFailure as e:
 	print "problem connecting to cmsc491", e
 	sys.exit(1)
 
-# conn.drop_database('repair')
+conn.drop_database('repair')
 
 x = raw_input("Load accounts? ")
-docs = ["mech.txt","cars.txt","test.txt"]
-colletions = [db.mech, db.cars, db.test]
+docs = ["mech.txt","cars.txt","test.txt","test_mech.txt","car_mech.txt"]
+colletions = [db.mech, db.cars, db.test, db.test_mech, db.car_mech]
 
 # hlc = db.lab1
 for doc in range(0,len(docs)):
@@ -28,10 +28,11 @@ print("\n\n===============================")
 print("Finding Customer")
 
 x = str(raw_input("Customer name (John Doe)? "))
+car_id = ""
 
 hlc = db.cars
 q = {
-	"customer_name" : x
+	"customer_name" : "John Doe"
 }
 p = {"_id":0}
 rs = hlc.find(q,p)
@@ -40,58 +41,18 @@ if not rs:
 	print "None found"
 else:
 	for res in rs:
-		print res['test_id']
+		car_id = res['id']
 
-# print("\n\n===============================")
-# print("Finding smiths loans/ loan information")
-# x = raw_input("continue? ")
-# hlc = db.loans
-# q = {
-# 	"customers" : "Smith"
-# }
-# p = {
-# 	"_id": 0
-# }
-# rs = hlc.find(q,p)
-# if not rs:
-# 	print "None found"
-# else:
-# 	for res in rs:
-# 		print res
+# get tests:
+hlc = db.test
+q = {
+	"car_id" : car_id
+}
+p = {"_id":0}
+rs = hlc.find(q,p)
 
-# print("\n\n===============================")
-# print("Branches that manage smiths loans")
-# x = raw_input("continue? ")
-# hlc = db.loans
-# q = {
-# 	"customers":"Smith"
-# }
-# p = {
-# 	"branch":1,
-# 	"_id":0
-# }
-# rs = hlc.find(q,p)
-
-# if not rs:
-# 	print "No joy on q,p"
-# else:
-# 	for res in rs:
-# 		print res
-
-
-# print("\n\n===============================")
-# print("Smiths accounts/account info")
-# x = raw_input("continue? ")
-# hlc = db.accounts
-# q = {
-# 	"customers" : "Smith"
-# }
-# p = {
-# 	"_id": 0
-# }
-# rs = hlc.find(q,p)
-# if not rs:
-# 	print "None found"
-# else:
-# 	for res in rs:
-# 		print res
+if not rs:
+	print "None found"
+else:
+	for res in rs:
+		print res['testname']
