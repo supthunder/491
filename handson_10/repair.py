@@ -56,3 +56,22 @@ if not rs:
 else:
 	for res in rs:
 		print res['testname']
+		
+		
+print("\n\n===============================")
+print("Finding Mechanics who worked on this car")
+
+x = str(raw_input("Car ID (C-001)? "))
+
+hlc = db.car_mech
+q = {
+	"car_id" : 'C-001'
+}
+p = {"_id":0}
+rs = hlc.find(q,p)
+
+if not rs:
+	print "None found"
+else:
+	for res in rs:
+		print res['mech_id']
