@@ -56,8 +56,9 @@ if not rs:
 else:
 	for res in rs:
 		print res['testname']
-		
-		
+
+
+
 print("\n\n===============================")
 print("Finding Mechanics who worked on this car")
 
@@ -74,4 +75,23 @@ if not rs:
 	print "None found"
 else:
 	for res in rs:
-		print res['mech_id']
+		print res['mech_id']		
+
+print("\n\n===============================")
+print("Find all cars that have had specific type test run:")
+x = str(raw_input("Car test (brakes)? "))
+
+hlc = db.test
+q = {
+	"testname" : "brakes"
+}
+p = {
+	"_id": 0
+}
+rs = hlc.find(q,p)
+if not rs:
+	print "None found"
+else:
+	for res in rs:
+		print res['car_id']
+
