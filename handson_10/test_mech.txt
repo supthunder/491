@@ -3,5 +3,7 @@
 {'test_id':'T-0002','mech_id':'M-0601'},
 {'test_id':'T-0003','mech_id':'M-0401'},
 {'test_id':'T-0050','mech_id':'M-0401'},
-{'test_id':'T-0101','mech_id':'M-0401'}
+{'test_id':'T-0101','mech_id':'M-0401'},
+{'test_id':'T-0950','mech_id':'M-0901'},
+{'test_id':'T-0951','mech_id':'M-0901'}
 ]
