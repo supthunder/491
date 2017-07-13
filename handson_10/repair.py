@@ -13,99 +13,84 @@ conn.drop_database('repair')
 
 x = raw_input("Load accounts? ")
 docs = ["mech.txt","cars.txt","test.txt","test_mech.txt","car_mech.txt"]
-colletions = [db.mech, db.cars, db.test, db.test_mech, db.car_mech]
+collections = [db.mech, db.cars, db.test, db.test_mech, db.car_mech]
 
-# hlc = db.lab1
 for doc in range(0,len(docs)):
-	hlc = colletions[doc]
+	col = collections[doc]
 	in_str = open(docs[doc]).read()
 	in_lst = eval(in_str)
 	for i in range(0, len(in_lst)):
 		print in_lst[i]
-		hlc.insert(in_lst[i])
+		col.insert(in_lst[i])
+
+# Composite index to ensure no duplicates in many-to-many tables
+db.test_mech.create_index([("test_id", pymongo.ASCENDING), 
+                           ("mech_id", pymongo.ASCENDING)], unique=True)
+
+db.car_mech.create_index([("car_id", pymongo.ASCENDING), 
+                          ("mech_id", pymongo.ASCENDING)], unique=True)
+
+
 
 print("\n\n===============================")
-print("Finding Customer")
+print("Query A: Find customer & display tests run on their car")
 
-x = str(raw_input("Customer name (John Doe)? "))
+name = str(raw_input("Enter customer name (ex. John Doe): "))
 car_id = ""
 
-hlc = db.cars
-q = {
-	"customer_name" : x
-}
-p = {"_id":0}
-rs = hlc.find(q,p)
+set = db.cars.find({'customer_name' : name})
 
-if not rs:
+if not set:
 	print "None found"
 else:
-	for res in rs:
-		car_id = res['id']
-                print ("Car ID: " +car_id)
+
+	for result in set:
+		car_id = result['_id']
+
 
 # get tests:
-hlc = db.test
-q = {
-	"car_id" : car_id
-}
-p = {"_id":0}
-rs = hlc.find(q,p)
 
-if not rs:
+#get list of all test IDs for a given car
+set = db.test.distinct('_id', {'car_id' : car_id})
+
+if not set:
 	print "None found"
 else:
-	for res in rs:
-            print ("testname: " +res['testname'])
+	for result in set:
+            print ("Test ID: " + result)
 
 
 
 print("\n\n===============================")
-print("Finding Mechanics who worked on this car")
+print("Query B: Find mechanics who worked on " + name + "'s car")
 
-x = str(raw_input("Car ID (C-001)? "))
-
-hlc = db.car_mech
 q = {
-	"car_id" : x
-}
-p = {"_id":0}
-rs = hlc.find(q,p)
-
-if not rs:
-	print "None found"
-else:
-	for res in rs:
-		print res['mech_id']		
-
-print("\n\n===============================")
-print("Find all cars that have had specific type test run:")
-x = str(raw_input("Car test (brakes)? "))
-
-hlc = db.test
-test_id = ""
-q = {
-	"testname" : x
+    "test_id":{ "$in": set }
 }
 p = {
-	"_id": 0
+    "mech_id":1
 }
-rs = hlc.find(q,p)
-if not rs:
+set = db.test_mech.find(q,p).distinct("mech_id")
+
+if not set:
 	print "None found"
 else:
-	for res in rs:
-		test_id = res['test_id']
-hlc = db.cars
-q = {
-        "test_id" : test_id
-}
-p = {"_id":0}
-rs = hlc.find(q,p)
+	for result in set:
+		print result
 
-if not rs:
-    print "None found"
+
+
+
+print("\n\n===============================")
+print("Query C: Find all cars that underwent a certain test type:")
+x = str(raw_input("Enter test type(ex. transmission): "))
+
+# Need distinct() since the same car could be output twice if it had multiple
+# tests of the same type performed
+set = db.test.distinct('car_id', {'test_type' : x})
+
+if not set:
+	print "None found"
 else:
-    for res in rs:
-        print res['id']
-
+	for result in set:
+		print result
