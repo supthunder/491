@@ -41,56 +41,28 @@ car_id = ""
 set = db.cars.find({'customer_name' : name})
 
 if not set:
-	print "None found"
+    print "None found"
+elif set.count() == 1:
+    print ("Found 1 result: Car ID = " + set[0]['_id'])
+    car_id = set[0]['_id']
 else:
+    i = 1
+    print ("Found " + str(set.count()) + " results:")
+    for i, result in enumerate(set):
+        print (str(i+1) + ". ID = " + result['_id'] + "  License # = " + result['license_tag'] )
+    
+    entry = input("Choose result #: ")
+    set.rewind()
+    car_id = set[entry-1]['_id']
 
-	for result in set:
-		car_id = result['_id']
 
 
 # get tests:
+set = db.test.find({'car_id' : car_id})
 
-#get list of all test IDs for a given car
-set = db.test.distinct('_id', {'car_id' : car_id})
-
+print ("\nTests run on " + car_id + ":")
 if not set:
-	print "None found"
+    print "None found"
 else:
-	for result in set:
-            print ("Test ID: " + result)
-
-
-
-print("\n\n===============================")
-print("Query B: Find mechanics who worked on " + name + "'s car")
-
-q = {
-    "test_id":{ "$in": set }
-}
-p = {
-    "mech_id":1
-}
-set = db.test_mech.find(q,p).distinct("mech_id")
-
-if not set:
-	print "None found"
-else:
-	for result in set:
-		print result
-
-
-
-
-print("\n\n===============================")
-print("Query C: Find all cars that underwent a certain test type:")
-x = str(raw_input("Enter test type(ex. transmission): "))
-
-# Need distinct() since the same car could be output twice if it had multiple
-# tests of the same type performed
-set = db.test.distinct('car_id', {'test_type' : x})
-
-if not set:
-	print "None found"
-else:
-	for result in set:
-		print result
+    for result in set:
+        print ("Test ID: " + result['_id'])
