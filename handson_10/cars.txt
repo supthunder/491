@@ -3,5 +3,6 @@
 {'_id':'C-0002','license_tag': '24C1AP1', 'customer_name':'John Doe'}, 
 {'_id':'C-0003','license_tag': 'C097P31', 'customer_name':'Jack Kim'}, 
 {'_id':'C-0004','license_tag': 'ZZ098P4', 'customer_name':'Chuck Norris'},
-{'_id':'C-0005','license_tag': 'PR76542', 'customer_name':'Jane Smith'}
+{'_id':'C-0005','license_tag': 'PR76542', 'customer_name':'Jane Smith'},
+{'_id':'C-0006','license_tag': 'A27D2L0', 'customer_name':'Dina Sagit'}
 ]
